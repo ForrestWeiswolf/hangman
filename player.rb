@@ -11,11 +11,15 @@ class HumanPlayer < Player
 	end
 
 	def guess
-		puts "Guess a letter."
+		puts "Guess a letter, or type 'SAVE' or 'LOAD'."
 		input = gets.chomp
-		guess = input[(/([A-Z]|[a-z])/)]
-		puts guess
-		return guess
+		if input == "SAVE" || input == "LOAD"
+			return input
+		else
+			guess = input[(/([A-Z]|[a-z])/)].downcase
+			puts guess
+			return guess
+		end
 	end
 end
 
@@ -25,7 +29,6 @@ class AIPlayer < Player
 		dictionary.map { |e|  e.strip}
 		dictionary = dictionary.select { |word|  (5..12).include?(word.size) && word[0] =~ /[a-z]/}
 		#select there should maybe take a proc
-		puts dictionary[0..30]
 		return dictionary.sample.strip
 	end
 end
