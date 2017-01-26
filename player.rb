@@ -10,16 +10,10 @@ class HumanPlayer < Player
 		#need to check that it's a valid word, etc.
 	end
 
-	def guess
-		puts "Guess a letter, or type 'SAVE' or 'LOAD'."
+	def input
+		puts "Guess a letter, or type 'SAVE'."
 		input = gets.chomp
-		if input == "SAVE" || input == "LOAD"
-			return input
-		else
-			guess = input[(/([A-Z]|[a-z])/)].downcase
-			puts guess
-			return guess
-		end
+		return input
 	end
 end
 
