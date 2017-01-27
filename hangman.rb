@@ -23,14 +23,20 @@ class Hangman
 
 	def display
 		puts "Guesses left: #{@guesses_left}"
+		puts self.guessed_part
+		print "\n"
+	end
+
+	def guessed_part
+		result = ""
 		@word.each_char do |letter|
 			if @guessed_letters.include?(letter)
-				print letter
+				result = result + letter
 			else
-				print "_"
+				result = result + "_"
 			end
 		end
-		print "\n"
+		return result
 	end
 
 	def turn
