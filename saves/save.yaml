@@ -1,10 +1,12 @@
 --- !ruby/object:Hangman
 player: !ruby/object:HumanPlayer {}
 executioner: !ruby/object:AIPlayer {}
-word: unshakably
-guesses_left: 4
+word: king
+guesses_left: 2
 guessed_letters:
 - e
 - t
 - a
+- o
+- i
 won: false

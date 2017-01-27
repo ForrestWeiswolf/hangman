@@ -9,9 +9,13 @@ class Hangman
 		@guessed_letters = []
 		
 		@won = false
-		
+
+		self.gameloop
+	end
+
+	def gameloop
 		while @guesses_left > 0
-			turn()
+			self.turn()
 		end
 
 		self.end_game
@@ -60,14 +64,24 @@ class Hangman
 
 	def save
 		Dir.mkdir('saves') unless Dir.exist? "saves"
-		filename = 'saves/save.yaml'
-		File.open(filename, 'w') do |file|
+		File.open('saves/save.yaml', 'w') do |file|
     		file.puts YAML.dump(self)
 		end
 		puts "Game saved."
 	end
 end
 
-exa = AIPlayer.new()
-gus = HumanPlayer.new()
-hang = Hangman.new(exa, gus)
+ai = AIPlayer.new()
+player = HumanPlayer.new()
+puts "Type 'LOAD' to load your saved game, or type anything else to start a new game."
+input = gets.chomp
+if input == 'LOAD'
+	File.open('saves/save.yaml', 'r') do |file|
+    	game = YAML.load(file)
+    	puts "Game loaded."
+    	game.display
+		game.gameloop
+	end
+else
+	game = Hangman.new(ai, player)
+end
