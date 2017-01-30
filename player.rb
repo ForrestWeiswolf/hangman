@@ -13,16 +13,29 @@ class HumanPlayer < Player
 	def input
 		puts "Guess a letter, or type 'SAVE'."
 		input = gets.chomp
-		return input
+		if input == "SAVE" 
+			return input
+		else
+			input = input[(/([A-Z]|[a-z])/)]
+		end
+
+		if input
+			return input.downcase
+		else
+			puts "That wasn't a valid guess."
+			return self.input
+		end
 	end
 end
 
 class AIPlayer < Player
+	def initialize
+		@dictionary = File.readlines '5desk.txt'
+		@dictionary = @dictionary.map { |e|  e.strip}
+		@dictionary = @dictionary.select { |word|  (5..12).include?(word.size) && word[0] =~ /[a-z]/}
+	end
+
 	def pick_word
-		dictionary = File.readlines '5desk.txt'
-		dictionary.map { |e|  e.strip}
-		dictionary = dictionary.select { |word|  (5..12).include?(word.size) && word[0] =~ /[a-z]/}
-		#select there should maybe take a proc
-		return dictionary.sample.strip
+		return @dictionary.sample
 	end
 end

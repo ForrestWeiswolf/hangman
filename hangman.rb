@@ -41,14 +41,11 @@ class Hangman
 
 	def turn
 		input = @player.input
-		case input 
-		when "SAVE" 
+		if input == "SAVE" 
 			self.save
-		#when "LOAD"
-		#	self.load_save
+			self.turn
 		else
-			guess = input[(/([A-Z]|[a-z])/)].downcase
-			self.check_guess(guess)
+			self.check_guess(input)
 			self.display
 		end
 	end
