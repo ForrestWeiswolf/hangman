@@ -1,5 +1,14 @@
 class Player 
 	def initialize
+		@dictionary = File.readlines '5desk.txt'
+		@dictionary = @dictionary.map { |e|  e.strip}
+		@dictionary = @dictionary.select do |word|
+			valid_word?(word)
+		end
+	end
+
+	def valid_word?(word)
+		(5..12).include?(word.size) && word[0] =~ /[a-z]/ \
 	end
 end
 
@@ -7,8 +16,12 @@ class HumanPlayer < Player
 	def pick_word
 		puts "Pick a word."
 		word = gets.chomp.downcase
-		return word
-		#need to check that it's a valid word, etc.
+		if valid_word?(word) && @dictionary.include?(word)
+			return word
+		else
+			puts "It should be a word, between 5 and 12 letters long."
+			return self.pick_word
+		end
 	end
 
 	def input(partial_word)
@@ -24,19 +37,15 @@ class HumanPlayer < Player
 			return input.downcase
 		else
 			puts "That wasn't a valid guess."
-			return self.input
+			return self.input(partial_word)
 		end
 	end
 end
 
 class AIPlayer < Player
 	def initialize(guessed = [])
-		@dictionary = File.readlines '5desk.txt'
-		@dictionary = @dictionary.map { |e|  e.strip}
-		@dictionary = @dictionary.select do |word|
-			(5..12).include?(word.size) && word[0] =~ /[a-z]/
-		end
 		@guessed = guessed
+		super()
 	end
 
 	def pick_word
