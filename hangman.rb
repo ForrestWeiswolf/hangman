@@ -21,6 +21,17 @@ class Hangman
 		self.end_game
 	end
 
+	def turn
+		input = @player.input(self.guessed_part)
+		if input == "SAVE" 
+			self.save
+			self.turn
+		else
+			self.check_guess(input)
+			self.display
+		end
+	end
+
 	def display
 		puts "Guesses left: #{@guesses_left}"
 		puts self.guessed_part
@@ -37,17 +48,6 @@ class Hangman
 			end
 		end
 		return result
-	end
-
-	def turn
-		input = @player.input
-		if input == "SAVE" 
-			self.save
-			self.turn
-		else
-			self.check_guess(input)
-			self.display
-		end
 	end
 
 	def check_guess(guess)
@@ -86,5 +86,5 @@ if input == 'LOAD'
 		game.gameloop
 	end
 else
-	game = Hangman.new(ai, player)
+	game = Hangman.new(player, ai)
 end

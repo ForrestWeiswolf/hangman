@@ -5,12 +5,13 @@ end
 
 class HumanPlayer < Player
 	def pick_word
-		word = gets.chomp
+		puts "Pick a word."
+		word = gets.chomp.downcase
 		return word
 		#need to check that it's a valid word, etc.
 	end
 
-	def input
+	def input(partial_word)
 		puts "Guess a letter, or type 'SAVE'."
 		input = gets.chomp
 		if input == "SAVE" 
@@ -29,13 +30,43 @@ class HumanPlayer < Player
 end
 
 class AIPlayer < Player
-	def initialize
+	def initialize(guessed = [])
 		@dictionary = File.readlines '5desk.txt'
 		@dictionary = @dictionary.map { |e|  e.strip}
-		@dictionary = @dictionary.select { |word|  (5..12).include?(word.size) && word[0] =~ /[a-z]/}
+		@dictionary = @dictionary.select do |word|
+			(5..12).include?(word.size) && word[0] =~ /[a-z]/
+		end
+		@guessed = guessed
 	end
 
 	def pick_word
 		return @dictionary.sample
 	end
+
+	def input(partial_word)
+		possibilities = possible_words(partial_word).join()
+		guess = nil
+		rank = 0
+		("a".."z").each do |l|
+			count = possibilities.count(l)
+			if count >= rank && !@guessed.include?(l)
+				guess = l
+				rank = count
+			end
+		end
+		@guessed = @guessed + [guess]
+		puts "I guess '#{guess}'"
+		return guess
+	end
+
+	def possible_words(partial_word)
+		partial_word = partial_word.gsub(/[_]/, '[a-z]')
+		pattern = /^#{partial_word}$/
+		#not sure that the ^ and $ are doing what I want them to
+		#needs to check that word doesn't have guessed letters where they weren't shown, not just that it does where they were
+		return @dictionary.select { |word| word =~ pattern}
+	end
 end
+
+#ai = AIPlayer.new(["i", "n", "z", "h"])
+#puts ai.input("in__n_i_i__")
