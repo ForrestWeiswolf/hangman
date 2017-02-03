@@ -74,17 +74,26 @@ class Hangman
 	end
 end
 
-ai = AIPlayer.new()
-player = HumanPlayer.new()
-puts "Type 'LOAD' to load your saved game, or type anything else to start a new game."
-input = gets.chomp
-if input == 'LOAD'
-	File.open('saves/save.yaml', 'r') do |file|
-    	game = YAML.load(file)
-    	puts "Game loaded."
-    	game.display
-		game.gameloop
+def start(player, ai)
+	puts "Type 'LOAD' to load your saved game, G to start a game as the guesser, or \
+		  E to start as the executioner."
+	input = gets.chomp
+	case input
+	when 'LOAD'
+		File.open('saves/save.yaml', 'r') do |file|
+	    	game = YAML.load(file)
+	    	puts "Game loaded."
+	    	game.display
+			game.gameloop
+		end
+	when 'E'
+		game = Hangman.new(player, ai)
+	when 'G'
+		game = Hangman.new(ai, player)
+	else
+		puts "I didn't understand that."
+		start(player, ai)
 	end
-else
-	game = Hangman.new(player, ai)
 end
+
+start(HumanPlayer.new(), AIPlayer.new())
