@@ -1,4 +1,5 @@
 require 'sinatra'
+require_relative 'hangman'
 
 get '/' do
 	erb :index
@@ -9,11 +10,14 @@ get '/load' do
 end
 
 get '/start' do
-	erb :start
+	game = Hangman.new()
+	redirect to('/game/guesser')
 end
 
-get 'start/guesser' do 
-end
-
-get 'start/executioner' do 
+get 'game/guesser' do 
+	guesses_left = game.guesses_left
+	guessed_part = game.guessed_part
+	guessed_letters = game.guessed_letters
+	erb :guesser_game, :locals => {:guesses_left => guesses_left, 
+									:guessed_part => guessed_part}
 end
