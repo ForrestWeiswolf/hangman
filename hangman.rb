@@ -29,14 +29,7 @@ class Hangman
 			self.turn
 		else
 			self.check_guess(input)
-			self.display
 		end
-	end
-
-	def display
-		puts "Guesses left: #{@guesses_left}"
-		puts self.guessed_part
-		print "\n"
 	end
 
 	def guessed_part
