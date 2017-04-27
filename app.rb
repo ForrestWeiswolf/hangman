@@ -19,9 +19,9 @@ get 'game/guesser' do
 	guessed_part = game.guessed_part
 	guessed_letters = game.guessed_letters
 
-	guess = params["guess"][/([A-Z]|[a-z])/]
+	guess = params["guess"][/([A-Z]|[a-z])/].downcase
 	if guess
-		return guess.downcase
+		game.turn(guess)
 	else
 		redirect to('/game/guesser')
 		#should display a message somehow

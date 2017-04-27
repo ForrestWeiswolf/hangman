@@ -22,8 +22,10 @@ class Hangman
 		self.end_game
 	end
 
-	def turn
-		input = @player.input(self.guessed_part)
+	def turn(input = nil)
+		#input argument is a awkward way of making this interface with 
+		#app.rb - should figure out something better later
+		input ||= @player.input(self.guessed_part)
 		if input == "SAVE" 
 			self.save
 			self.turn
