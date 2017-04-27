@@ -2,7 +2,7 @@
 <p>Guessed letters:<%= guessed_letters.inspect %></p>
 <p>Guesses left: <%= guesses_left %></p>
 <br>
-<form>
+<form action="game/guesser">
 	<input type='text' name='guess'/>
   	<input type='submit' value='Guess a letter!' />
 </form>
