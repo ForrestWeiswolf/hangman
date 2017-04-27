@@ -16,9 +16,9 @@ get '/start' do
 	guessed_part = game.guessed_part
 	guessed_letters = game.guessed_letters
 
-
 	erb :guesser_game, :locals => {:guesses_left => guesses_left, 
-									:guessed_part => guessed_part}
+									:guessed_part => guessed_part, 
+									:guessed_letters => guessed_letters}
 end
 
 get 'game/guesser' do 
@@ -35,5 +35,6 @@ get 'game/guesser' do
 	end
 
 	erb :guesser_game, :locals => {:guesses_left => guesses_left, 
-									:guessed_part => guessed_part}
+									:guessed_part => guessed_part, 
+									:guessed_letters => guessed_letters}
 end
