@@ -11,7 +11,7 @@ class Hangman
 		
 		@won = false
 
-		self.gameloop
+		#self.gameloop
 	end
 
 	def gameloop
