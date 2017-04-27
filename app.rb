@@ -22,10 +22,6 @@ get '/start' do
 end
 
 get '/guesser_game' do 
-	guesses_left = GAME.guesses_left
-	guessed_part = GAME.guessed_part
-	guessed_letters = GAME.guessed_letters
-
 	guess = params["guess"][/([A-Z]|[a-z])/].downcase
 	if guess
 		GAME.turn(guess)
@@ -33,6 +29,10 @@ get '/guesser_game' do
 		redirect to('/game/guesser')
 		#should display a message somehow
 	end
+
+	guesses_left = GAME.guesses_left
+	guessed_part = GAME.guessed_part
+	guessed_letters = GAME.guessed_letters
 
 	erb :guesser_game, :locals => {:guesses_left => guesses_left, 
 									:guessed_part => guessed_part, 
