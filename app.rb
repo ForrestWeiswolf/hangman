@@ -11,7 +11,14 @@ end
 
 get '/start' do
 	game = Hangman.new()
-	redirect to('/game/guesser')
+
+	guesses_left = game.guesses_left
+	guessed_part = game.guessed_part
+	guessed_letters = game.guessed_letters
+
+
+	erb :guesser_game, :locals => {:guesses_left => guesses_left, 
+									:guessed_part => guessed_part}
 end
 
 get 'game/guesser' do 
