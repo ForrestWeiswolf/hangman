@@ -89,5 +89,3 @@ def start(player, ai)
 		start(player, ai)
 	end
 end
-
-start(HumanPlayer.new(), AIPlayer.new())
