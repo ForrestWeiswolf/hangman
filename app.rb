@@ -18,6 +18,7 @@ get 'game/guesser' do
 	guesses_left = game.guesses_left
 	guessed_part = game.guessed_part
 	guessed_letters = game.guessed_letters
+	guess = params["guess"]
 	erb :guesser_game, :locals => {:guesses_left => guesses_left, 
 									:guessed_part => guessed_part}
 end
