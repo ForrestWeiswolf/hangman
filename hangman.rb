@@ -53,9 +53,9 @@ class Hangman
 
 	def end_game
 		if @won
-			puts "Yes! The word was '#{@word}', and the convict has been rescued."
+			return "Yes! The word was '#{@word}', and the convict has been rescued."
 		else
-			puts "The word was '#{@word}', but it's too late! The hanged man dies."
+			return "The word was '#{@word}', but it's too late! The hanged man dies."
 		end
 	end
 
