@@ -12,11 +12,10 @@ end
 get '/start' do
 	GAME = Hangman.new()
 
-	guesses_left = GAME.guesses_left
 	guessed_part = GAME.guessed_part
 	guessed_letters = GAME.guessed_letters
 
-	erb :guesser_game, :locals => {:guesses_left => guesses_left, 
+	erb :guesser_game, :locals => {:hangman_img => "<img src='/hangman0.png'>", 
 									:guessed_part => guessed_part, 
 									:guessed_letters => guessed_letters}
 end
@@ -30,11 +29,11 @@ get '/guesser_game' do
 		#should display a message somehow
 	end
 
-	guesses_left = GAME.guesses_left
+	hangman_img = "<img src='/hangman#{6-GAME.guesses_left}.png'>"
 	guessed_part = GAME.guessed_part
 	guessed_letters = GAME.guessed_letters
 
-	erb :guesser_game, :locals => {:guesses_left => guesses_left, 
+	erb :guesser_game, :locals => {:hangman_img => hangman_img, 
 									:guessed_part => guessed_part, 
 									:guessed_letters => guessed_letters}
 end

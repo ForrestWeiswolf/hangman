@@ -1,8 +1,8 @@
+<%=hangman_img%>
 <p><strong><%= guessed_part %></strong></p>
 <p>Guessed letters:<%= guessed_letters.inspect %></p>
-<p>Guesses left: <%= guesses_left %></p>
 <br>
-<form action="game/guesser">
+<form action="guesser_game">
 	<input type='text' name='guess'/>
   	<input type='submit' value='Guess a letter!' />
 </form>
