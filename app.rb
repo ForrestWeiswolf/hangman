@@ -29,11 +29,17 @@ get '/guesser_game' do
 		#should display a message somehow
 	end
 
-	hangman_img = "<img src='/hangman#{6-GAME.guesses_left}.png'>"
-	guessed_part = GAME.guessed_part
-	guessed_letters = GAME.guessed_letters
+	if GAME.won
+		erb :win
+	elsif GAME.guesses_left <= 0
+		erb :lose, :locals => {:word => GAME.word}
+	else
+		hangman_img = "<img src='/hangman#{6-GAME.guesses_left}.png'>"
+		guessed_part = GAME.guessed_part
+		guessed_letters = GAME.guessed_letters
 
-	erb :guesser_game, :locals => {:hangman_img => hangman_img, 
+		erb :guesser_game, :locals => {:hangman_img => hangman_img, 
 									:guessed_part => guessed_part, 
 									:guessed_letters => guessed_letters}
+	end
 end

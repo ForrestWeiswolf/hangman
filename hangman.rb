@@ -2,7 +2,7 @@ require "yaml"
 require_relative 'player'
 
 class Hangman
-	attr_reader :guesses_left, :guessed_letters, :won
+	attr_reader :guesses_left, :guessed_letters, :word, :won
 	def initialize(executioner = AIPlayer.new(), player = HumanPlayer.new())
 		@executioner, @player = executioner, player
 		@word = executioner.pick_word
