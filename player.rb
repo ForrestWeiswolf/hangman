@@ -1,14 +1,15 @@
+def valid_word?(word)
+	(5..12).include?(word.size) && word[0] =~ /[a-z]/ \
+end
+
 class Player 
-	def initialize
-		@dictionary = File.readlines '5desk.txt'
-		@dictionary = @dictionary.map { |e|  e.strip}
-		@dictionary = @dictionary.select do |word|
-			valid_word?(word)
-		end
+	@@dictionary = File.readlines '5desk.txt'
+	@@dictionary = @@dictionary.map { |e|  e.strip}
+	@@dictionary = @@dictionary.select do |word|
+		valid_word?(word)
 	end
 
-	def valid_word?(word)
-		(5..12).include?(word.size) && word[0] =~ /[a-z]/ \
+	def initialize
 	end
 end
 
@@ -16,7 +17,7 @@ class HumanPlayer < Player
 	def pick_word
 		puts "Pick a word."
 		word = gets.chomp.downcase
-		if valid_word?(word) && @dictionary.include?(word)
+		if valid_word?(word) && @@dictionary.include?(word)
 			return word
 		else
 			puts "It should be a word, between 5 and 12 letters long."
@@ -49,7 +50,7 @@ class AIPlayer < Player
 	end
 
 	def pick_word
-		return @dictionary.sample
+		return @@dictionary.sample
 	end
 
 	def input(partial_word)
@@ -73,7 +74,7 @@ class AIPlayer < Player
 		pattern = /^#{partial_word}$/
 		#not sure that the ^ and $ are doing what I want them to
 		#needs to check that word doesn't have guessed letters where they weren't shown, not just that it does where they were
-		return @dictionary.select { |word| word =~ pattern}
+		return @@dictionary.select { |word| word =~ pattern}
 	end
 end
 
