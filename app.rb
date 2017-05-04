@@ -1,12 +1,23 @@
 require 'sinatra'
+require "yaml"
 require_relative 'hangman'
+
+enable :sessions
+set :session_secret, "secret" #not secure, obviously
 
 get '/' do
 	erb :index
 end
 
+get '/save' do 
+	session[:game] = YAML.dump(GAME)
+	erb :message, :locals => {:message => "Game saved."}
+end
+
 get '/load' do
-	#not yet implemented
+	#GAME shouldn't be a constant
+	GAME = YAML.load(session[:game]) 
+	redirect to('/continue')
 end
 
 get '/start' do
